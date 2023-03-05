@@ -15,6 +15,7 @@ public class Playercontorller : MonoBehaviour
     public LayerMask groundLayer;//指定要在 Physics.Raycast 中使用的图层。
 
 
+
     [Header("States Check")] //使用该 PropertyAttribute 在 Inspector 中的某些字段上方添加标题。
     //可以在unity中查看脚本时将下列变量归类在States Check 下
     public bool isGround;//地面检测
