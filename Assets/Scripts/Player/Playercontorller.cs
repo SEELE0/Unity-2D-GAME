@@ -1,67 +1,68 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Playercontorller : MonoBehaviour
 {
-    private Rigidbody2D rb;//¶¨ÒåË½ÓĞRigidbody±äÁ¿(¸ÕÌå)
-    public float speed; //ºáÏòÒÆ¶¯ËÙ¶È
-    public float jumpForce; //ÌøÔ¾Á¦¶È
-    //ÒòÎªÏëÔÚunityÒıÇæ´°¿ÚÖĞµ÷ÕûËùÒÔÓÃpublic±äÁ¿
+    private Rigidbody2D rb;//å®šä¹‰ç§æœ‰Rigidbodyå˜é‡(åˆšä½“)
+    public float speed; //æ¨ªå‘ç§»åŠ¨é€Ÿåº¦
+    public float jumpForce; //è·³è·ƒåŠ›åº¦
+    //å› ä¸ºæƒ³åœ¨unityå¼•æ“çª—å£ä¸­è°ƒæ•´æ‰€ä»¥ç”¨publicå˜é‡
     
     [Header("Ground Check")]
     public Transform groundCheck;
-    public float checkRadius; //¼ì²â°ë¾¶
-    public LayerMask groundLayer;//Ö¸¶¨ÒªÔÚ Physics.Raycast ÖĞÊ¹ÓÃµÄÍ¼²ã¡£
+    public float checkRadius; //æ£€æµ‹åŠå¾„
+    public LayerMask groundLayer;//æŒ‡å®šè¦åœ¨ Physics.Raycast ä¸­ä½¿ç”¨çš„å›¾å±‚ã€‚
 
 
-    [Header("States Check")] //Ê¹ÓÃ¸Ã PropertyAttribute ÔÚ Inspector ÖĞµÄÄ³Ğ©×Ö¶ÎÉÏ·½Ìí¼Ó±êÌâ¡£
-    //¿ÉÒÔÔÚunityÖĞ²é¿´½Å±¾Ê±½«ÏÂÁĞ±äÁ¿¹éÀàÔÚStates Check ÏÂ
-    public bool isGround;//µØÃæ¼ì²â
+    [Header("States Check")] //ä½¿ç”¨è¯¥ PropertyAttribute åœ¨ Inspector ä¸­çš„æŸäº›å­—æ®µä¸Šæ–¹æ·»åŠ æ ‡é¢˜ã€‚
+    //å¯ä»¥åœ¨unityä¸­æŸ¥çœ‹è„šæœ¬æ—¶å°†ä¸‹åˆ—å˜é‡å½’ç±»åœ¨States Check ä¸‹
+    public bool isGround;//åœ°é¢æ£€æµ‹
     public bool canJump;
 
 
-    
-
-
     // Start is called before the first frame update
-    //startº¯ÊıÓÎÏ·¿ªÊ¼Ê±Ö´ĞĞÒ»´Î
+    //startå‡½æ•°æ¸¸æˆå¼€å§‹æ—¶æ‰§è¡Œä¸€æ¬¡
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();//»ñµÃ½ÇÉ«¸ÕÌå
+        rb = GetComponent<Rigidbody2D>();//è·å¾—è§’è‰²åˆšä½“
     }
 
     // Update is called once per frame
-    //updateº¯ÊıÃ¿Ò»Ö¡Ö´ĞĞÒ»´Î
-    //Êµ¼Ê²Ù×÷ÖĞupdateÏìÓ¦Êµ¼Ê²Ù×÷ÀıÈç¼üÅÌÊäÈë
+    //updateå‡½æ•°æ¯ä¸€å¸§æ‰§è¡Œä¸€æ¬¡
+    //å®é™…æ“ä½œä¸­updateå“åº”å®é™…æ“ä½œä¾‹å¦‚é”®ç›˜è¾“å…¥
     void Update()
     {
         checkinput();
     }
 
-    private void FixedUpdate()  //¹Ì¶¨Ê±¼äÖ´ĞĞ£¬Ò»°ã1SÖ´ĞĞ50´Î£»Êµ¼Ê²Ù×÷ÖĞFixedupdateÏìÓ¦ÎïÀíÖ´ĞĞµÄ·½·¨
+    private void FixedUpdate()  //å›ºå®šæ—¶é—´æ‰§è¡Œï¼Œä¸€èˆ¬1Sæ‰§è¡Œ50æ¬¡ï¼›å®é™…æ“ä½œä¸­Fixedupdateå“åº”ç‰©ç†æ‰§è¡Œçš„æ–¹æ³•
     {
-        PhysicsCheck(); 
+        PhysicsCheck();
         Movement();
         jump();
     }
 
-    void checkinput() {//¼ì²âÊäÈë 
-        if (Input.GetButtonDown("Jump")&&isGround)//ÔÚÓÃ»§°´ÏÂÓÉ buttonName ±êÊ¶µÄĞéÄâ°´Å¥µÄÖ¡ÆÚ¼ä·µ»Ø true¡£
+    void checkinput() {//æ£€æµ‹è¾“å…¥ 
+
+        /*
+            å¦‚æœåµŒå…¥å•†åŸç³»ç»Ÿåæœ‰é“å…·åŠŸèƒ½ä¸ºå¤šæ®µè·³ï¼Œå¯ä»¥æ›´æ”¹æ­¤å¤„æ¡ä»¶è¯­å¥
+            ä¸ºif (Input.GetButtonDown("Jump"))
+         */
+        if (Input.GetButtonDown("Jump") && isGround)//åœ¨ç”¨æˆ·æŒ‰ä¸‹ç”± buttonName æ ‡è¯†çš„è™šæ‹ŸæŒ‰é’®çš„å¸§æœŸé—´è¿”å› trueã€‚
         {
             canJump = true;
         }
     }
 
-    void Movement()//ÈËÎïÒÆ¶¯
+    void Movement()//äººç‰©ç§»åŠ¨
     {
-        //float horizontalInput = Input.GetAxis("Horizontal");  //ºáÏòĞéÄâÖá £»Öµ´óĞ¡ -1~1 °üÀ¨Ğ¡Êı
-        float horizontalInput = Input.GetAxisRaw("Horizontal"); //ºáÏòĞéÄâÖá£»Öµ´óĞ¡ -1~1 ²»°üÀ¨Ğ¡Êı
-        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);  //¶¨ÒåËÙ¶È£¬ºáÏòËÙ¶È¸ü¸Ä£¬×İÏò²»±ä
-
+        //float horizontalInput = Input.GetAxis("Horizontal");  //æ¨ªå‘è™šæ‹Ÿè½´ ï¼›å€¼å¤§å° -1~1 åŒ…æ‹¬å°æ•°
+        float horizontalInput = Input.GetAxisRaw("Horizontal"); //æ¨ªå‘è™šæ‹Ÿè½´ï¼›å€¼å¤§å° -1~1 ä¸åŒ…æ‹¬å°æ•°
+        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);  //å®šä¹‰åˆšä½“çš„**çº¿æ€§é€Ÿåº¦**ï¼Œæ¨ªå‘é€Ÿåº¦æ›´æ”¹ï¼Œçºµå‘ä¸å˜
         
-        if (horizontalInput != 0) {//¿ØÖÆÈËÎï×óÒÆÓÒÒÆÈËÎï·­×ª
-            transform.localScale = new Vector3(horizontalInput, 1, 1);//Í¨¹ı¿ØÖÆËõ·ÅScaleµÄÈıÎ¬±äÁ¿ÊµÏÖ
+        if (horizontalInput != 0) {//æ§åˆ¶äººç‰©å·¦ç§»å³ç§»äººç‰©ç¿»è½¬
+            transform.localScale = new Vector3(horizontalInput, 1, 1);//é€šè¿‡æ§åˆ¶ç¼©æ”¾Scaleçš„ä¸‰ç»´å˜é‡å®ç°
         }
     }
     
@@ -69,25 +70,32 @@ public class Playercontorller : MonoBehaviour
     {
         if (canJump)
         {
-            rb.velocity = new Vector2(rb.velocity.x,jumpForce);//ÉèÖÃrb.velocity.xÄ¿µÄÊÇÈÃ½ÇÉ«ÔÚÌøÔ¾Ê±¿ÉÒÔ×óÓÒÎ»ÒÆ
-            rb.gravityScale = 4;  //ÌøÆğÊ±¸ü¸ÄÖØÁ¦´óĞ¡Îª4
+            rb.velocity = new Vector2(rb.velocity.x,jumpForce);//è®¾ç½®rb.velocity.xç›®çš„æ˜¯è®©è§’è‰²åœ¨è·³è·ƒæ—¶å¯ä»¥å·¦å³ä½ç§»
+            rb.gravityScale = 4;  //è·³èµ·æ—¶æ›´æ”¹é‡åŠ›å¤§å°ä¸º4
             canJump = false;
         }
+        
     }
 
-    void PhysicsCheck() //ÎïÀí¼ì²â
+    void PhysicsCheck() //ç‰©ç†æ£€æµ‹
     {
-        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);//¼ì²âÊÇ·ñÔÚµØÃæÉÏ
+        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);//æ£€æµ‹æ˜¯å¦åœ¨åœ°é¢ä¸Š
         if (isGround) 
         {
-            rb.gravityScale = 1; //´¥µØÊ±¸ü¸ÄÖØÁ¦´óĞ¡Îª1
+            rb.gravityScale = 1; //è§¦åœ°æ—¶æ›´æ”¹é‡åŠ›å¤§å°ä¸º1
+            //canJump = false;
         }
+        /*else
+        {
+            rb.gravityScale = 4;  //è·³èµ·æ—¶æ›´æ”¹é‡åŠ›å¤§å°ä¸º4ã€
+        }*/
+
     }
 
-    public void OnDrawGizmos()//ÔÚunityÖĞÏÔÊ¾¼ì²â·¶Î§;UnityÄÚÖÃº¯Êı
+    public void OnDrawGizmos()//åœ¨unityä¸­æ˜¾ç¤ºæ£€æµ‹èŒƒå›´;Unityå†…ç½®å‡½æ•°
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, checkRadius);//»æÖÆÔ²ĞÎ¼ì²â·¶Î§
+        Gizmos.DrawWireSphere(groundCheck.position, checkRadius);//ç»˜åˆ¶åœ†å½¢æ£€æµ‹èŒƒå›´
     }
 
 }

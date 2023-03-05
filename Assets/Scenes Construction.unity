@@ -5590,7 +5590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202002236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.095, y: -0.879, z: 0}
+  m_LocalPosition: {x: 0.11, y: -0.595, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5649,6 +5649,8 @@ GameObject:
   - component: {fileID: 1242622488}
   - component: {fileID: 1242622487}
   - component: {fileID: 1242622491}
+  - component: {fileID: 1242622492}
+  - component: {fileID: 1242622493}
   m_Layer: 10
   m_Name: player
   m_TagString: Untagged
@@ -5697,7 +5699,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -5784,14 +5786,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 8
+  jumpForce: 15
   groundCheck: {fileID: 1202002237}
-  checkRadius: 0.38
+  checkRadius: 0.43
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   isGround: 0
   canJump: 0
+--- !u!95 &1242622492
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242622486}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f81f32ded65e6ce458fe57152bc9c0d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1242622493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242622486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966ade956ec13f04398394ec396ed8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1510803467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6565697266827840527, guid: 21504b417af332e4fa47a6d83383df6e, type: 3}
@@ -5941,9 +5975,9 @@ CompositeCollider2D:
         Y: -80000000
       - X: 170000000
         Y: -80000000
-    - - X: -150000000
+    - - X: -160000000
         Y: -60000000
-      - X: -150000000
+      - X: -160000000
         Y: 60000000
       - X: 160000000
         Y: 60000000
@@ -5976,8 +6010,8 @@ CompositeCollider2D:
       - {x: -17, y: 8.99997}
       - {x: -16.999971, y: -8}
     - - {x: 16, y: -5.9999704}
-      - {x: -15, y: -5.9999704}
-      - {x: -14.999971, y: 6}
+      - {x: -16, y: -5.9999704}
+      - {x: -15.999971, y: 6}
       - {x: 16, y: 5.9999704}
     - - {x: 10.99997, y: -2}
       - {x: 10.99997, y: 3}
