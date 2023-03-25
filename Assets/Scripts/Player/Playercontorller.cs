@@ -20,13 +20,18 @@ public class Playercontorller : MonoBehaviour
     //可以在unity中查看脚本时将下列变量归类在States Check 下
     public bool isGround;//地面检测
     public bool canJump;
+    public bool isJump;
 
+    [Header("特效效果FX")]
+    public GameObject jumpFx;  //GameObject类是Unity 场景中所有实体的基类。
+    public GameObject landFx;
 
     // Start is called before the first frame update
     //start函数游戏开始时执行一次
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();//获得角色刚体
+        
     }
 
     // Update is called once per frame
@@ -71,6 +76,9 @@ public class Playercontorller : MonoBehaviour
     {
         if (canJump)
         {
+            isJump = true;
+            jumpFx.SetActive(true);
+            jumpFx.transform.position = transform.position + new Vector3(0,-0.55f,0);
             rb.velocity = new Vector2(rb.velocity.x,jumpForce);//设置rb.velocity.x目的是让角色在跳跃时可以左右位移
             rb.gravityScale = 4;  //跳起时更改重力大小为4
             canJump = false;
@@ -84,12 +92,19 @@ public class Playercontorller : MonoBehaviour
         if (isGround) 
         {
             rb.gravityScale = 1; //触地时更改重力大小为1
-            //canJump = false;
+            isJump = false;
         }
         /*else
         {
             rb.gravityScale = 4;  //跳起时更改重力大小为4、
         }*/
+
+    }
+
+    public void landfx()//animetion event
+    {
+        landFx.SetActive(true);
+        landFx.transform.position = transform.position + new Vector3(0, -0.8f, 0);
 
     }
 
