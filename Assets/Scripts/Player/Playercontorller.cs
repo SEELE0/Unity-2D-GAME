@@ -10,7 +10,7 @@ public class Playercontorller : MonoBehaviour
     //因为想在unity引擎窗口中调整所以用public变量
     
     [Header("Ground Check")]
-    public Transform groundCheck;
+    public Transform groundCheck;//
     public float checkRadius; //检测半径
     public LayerMask groundLayer;//指定要在 Physics.Raycast 中使用的图层。
 
@@ -25,6 +25,13 @@ public class Playercontorller : MonoBehaviour
     [Header("特效效果FX")]
     public GameObject jumpFx;  //GameObject类是Unity 场景中所有实体的基类。
     public GameObject landFx;
+
+    [Header("攻击设定")]
+    public GameObject bomb;//炸弹游戏实体
+    public float nextAttack = 0; //预存下次攻击事件标杆
+    public float attackRate; //攻击频率技能CD
+    
+    
 
     // Start is called before the first frame update
     //start函数游戏开始时执行一次
@@ -58,6 +65,10 @@ public class Playercontorller : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGround)//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
         {
             canJump = true;
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Attack();
         }
     }
 
@@ -108,7 +119,16 @@ public class Playercontorller : MonoBehaviour
 
     }
 
-    public void OnDrawGizmos()//在unity中显示检测范围;Unity内置函数
+    public void Attack()//animetion event
+    {
+        if (Time.time > nextAttack)
+        {
+            nextAttack = Time.time + attackRate;
+            Instantiate(bomb, transform.position + new Vector3(0, 0.5f, 0),bomb.transform.rotation); //生成炸弹预制体
+        }
+    }
+
+public void OnDrawGizmos()//在unity中显示检测范围;Unity内置函数
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);//绘制圆形检测范围
