@@ -15,11 +15,11 @@ TagManager:
   - 
   - Ground
   - Eviroment
+  - Player
   - Npc
   - Bomb
-  - 
-  - 
-  - 
+  - FX
+  - CheckArea
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: NPC/Player
-    uniqueID: 4047373973
+  - name: NPC
+    uniqueID: 1147158349
+    locked: 0
+  - name: Player
+    uniqueID: 4031581125
     locked: 0
