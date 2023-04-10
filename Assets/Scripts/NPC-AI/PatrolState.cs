@@ -15,7 +15,8 @@ public class PatrolState:NpcBaseState
 
         public override void OnUpdate(NPC npc)
         {
-            if(!npc.anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))//如果动画播放完毕
+            /*这里需要注意IsName内部的属性与动画器中的命名一致*/
+            if(!npc.anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))//如果idle动画播放完毕
             {
                 npc.AnimeState = 1;//设置动画状态为其他动画
                 npc.Movement();
@@ -26,7 +27,11 @@ public class PatrolState:NpcBaseState
             {
                 npc.TransitionToState(npc.patrolState);//切换状态
             }
-            
+
+            if (npc.attackList.Count > 0) //如果发现敌人
+            {
+                npc.TransitionToState(npc.attackState);
+            }
 
             
         }

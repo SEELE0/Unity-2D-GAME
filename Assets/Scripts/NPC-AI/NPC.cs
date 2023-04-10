@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     /*通过list.add和list.remove  添加/移除对象到列表*/
     
     public PatrolState patrolState = new PatrolState();//巡逻状态
-
+    public AttackState attackState = new AttackState();//攻击状态
     public virtual void Init()
     {
         anim=GetComponent<Animator>();
