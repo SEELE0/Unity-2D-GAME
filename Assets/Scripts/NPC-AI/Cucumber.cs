@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cucumber : NPC //继承NPC类
+public class Cucumber : NPC,IDamageable //继承NPC类
 {
     public void Setoff()//设置炸弹吹灭动画效果----动画器 Event
     {
@@ -25,5 +25,17 @@ public class Cucumber : NPC //继承NPC类
         
     }*/
 
-    
+
+    public void GetHit(float damage)
+    {
+        health -= damage;
+        if (health < 1)
+        {
+            health = 0;
+            isDead = true;
+            // anim.SetBool("dead",isDead);
+            // Destroy(gameObject);
+        }
+        anim.SetTrigger("hit");
+    }
 }

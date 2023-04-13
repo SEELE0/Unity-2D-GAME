@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Playercontorller : MonoBehaviour
+public class Playercontorller : MonoBehaviour,IDamageable
 {
     private Rigidbody2D rb;//定义私有Rigidbody变量(刚体)
+    private Animator anim;//定义私有Animator变量(动画器)
     public float speed; //横向移动速度
     public float jumpForce; //跳跃力度
+    
     //因为想在unity引擎窗口中调整所以用public变量
     
     [Header("Ground Check")]
     public Transform groundCheck;//
     public float checkRadius; //检测半径
     public LayerMask groundLayer;//指定要在 Physics.Raycast 中使用的图层。
-
-
-
+    
     [Header("States Check")] //使用该 PropertyAttribute 在 Inspector 中的某些字段上方添加标题。
     //可以在unity中查看脚本时将下列变量归类在States Check 下
     public bool isGround;//地面检测
@@ -30,15 +30,17 @@ public class Playercontorller : MonoBehaviour
     public GameObject bomb;//炸弹游戏实体
     public float nextAttack = 0; //预存下次攻击事件标杆
     public float attackRate; //攻击频率技能CD
-    
-    
+
+    [Header("玩家状态")] 
+    public float health; //玩家生命值
+    bool isDead = false; //玩家死亡状态
 
     // Start is called before the first frame update
     //start函数游戏开始时执行一次
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();//获得角色刚体
-        
+        anim = GetComponent<Animator>();//获取匹配角色动画器组件
     }
 
     // Update is called once per frame
@@ -46,11 +48,22 @@ public class Playercontorller : MonoBehaviour
     //实际操作中update响应实际操作例如键盘输入
     void Update()
     {
+        anim.SetBool("dead",isDead);
+        if (isDead)
+        {
+            return;
+        }
         checkinput();
-    }
+        
+    } 
 
     private void FixedUpdate()  //固定时间执行，一般1S执行50次；实际操作中Fixedupdate响应物理执行的方法
     {
+        if (isDead)
+        {
+            rb.velocity = Vector2.zero;//设置刚体的线性速度为0
+            return;
+        }
         PhysicsCheck();
         Movement();
         jump();
@@ -134,5 +147,20 @@ public void OnDrawGizmos()//在unity中显示检测范围;Unity内置函数
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);//绘制圆形检测范围
     }
 
+public void GetHit(float damage)
+{
+    /*实现受伤短暂无敌*/
+    if (!anim.GetCurrentAnimatorStateInfo(1).IsName("player_hit")) //如果当前动画状态为player_hit
+    {
+        health -= damage; //减少生命值
+        if (health < 1 && !isDead) //如果生命值小于1且未死亡
+        {
+            health = 0; //生命值小于1时设为0
+            isDead = true;
+            // Destroy(gameObject);//销毁游戏对象
+        }
+        anim.SetTrigger("hit");
+    }
+}
 }
 

@@ -16,6 +16,9 @@ public class Bomb : MonoBehaviour
     [Header("Check")]
     public float radius;//爆炸范围
     public LayerMask targetLayer; //检测图层
+    
+    [Header("炸弹伤害")]
+    public float damage;
 
 
     // Start is called before the first frame update
@@ -68,9 +71,16 @@ public class Bomb : MonoBehaviour
             {
                 item.GetComponent<Bomb>().TurnOn();//调用炸弹脚本组件中的TurnOn方法
             }
+
+            if (item.CompareTag("Player"))//如果碰撞体的标签是Player
+            {
+                item.GetComponent<IDamageable>().GetHit(damage); //调用IDamageable接口中的GetHit方法
+            }
         }
     }
 
+    
+    /*在动画设置中添加Event 选择该函数实现物体组件销毁*/
     public void Destroy_bomb()
     {
         Destroy(gameObject);//销毁炸弹
