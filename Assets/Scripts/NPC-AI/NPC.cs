@@ -61,6 +61,14 @@ public class NPC : MonoBehaviour
             // Destroy(gameObject);
             return;
         }
+        /*可更改点:
+            可以吧Dead Ground动画加入动画器
+            编写逻辑
+            当玩家死亡时播放Dead Ground动画后销毁游戏对象
+            Destroy(gameObject);
+         */
+        
+        
         currentState.OnUpdate(this); //使用this将类对象作为参数传递给函数方法-----保持状态
         anim.SetInteger("AnimeState",AnimeState); //设置动画状态
 
@@ -107,22 +115,22 @@ public class NPC : MonoBehaviour
     public virtual void Skill()//技能  
     {
         //Debug.Log("技能");
-        if (Vector2.Distance(transform.position,targetPoint.position)<SkillRage)//如果两者距离小于攻击距离
+        if (Vector2.Distance(transform.position,targetPoint.position)<SkillRage)//如果两者距离小于技能攻击距离
         {
             if (Time.time > nextAttack) //如果时间大于下次攻击时间
             {
                 // 播放攻击动画
                 anim.SetTrigger("Skill");
-                nextAttack = Time.time + AttackRate; //下次攻击时间=当前时间+攻击频率
-                // Debug.Log("普通攻击");
+                nextAttack = Time.time + AttackRate; //下次技能攻击时间=当前时间+攻击频率
+                
                 
             }
         }
     }
 
-    public void FlipDirection()//判别角色反转
+    public virtual void FlipDirection()//判别角色反转
     {
-        if (transform.position.x > targetPoint.position.x)
+        if (transform.position.x > targetPoint.position.x) //如果npc位置大于目标点位置
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         else
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);//通过改变欧拉角进行翻转
