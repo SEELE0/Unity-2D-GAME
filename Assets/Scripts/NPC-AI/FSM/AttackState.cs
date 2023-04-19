@@ -14,6 +14,9 @@ public class AttackState : NpcBaseState
 
     public override void OnUpdate(NPC npc)
     {
+        if(npc.hasBomb) //如果有炸弹
+            return;  //直接返回
+        
         if (npc.attackList.Count == 0) //如果视野中消失 
         {
             npc.TransitionToState(npc.patrolState);

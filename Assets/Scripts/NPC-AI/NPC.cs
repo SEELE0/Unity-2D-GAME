@@ -13,9 +13,10 @@ public class NPC : MonoBehaviour
 
     private GameObject alarmSign; //警报标志
     
-    [Header("基础角色属性")]
+    [Header("基础角色状态判断")]
     public float health;
     public bool isDead;
+    public bool hasBomb; //是否有炸弹
     
     [Header("移动属性")]
     public float speed;
@@ -52,7 +53,7 @@ public class NPC : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         anim.SetBool("dead",isDead);
         if (isDead)
@@ -135,7 +136,13 @@ public class NPC : MonoBehaviour
         else
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);//通过改变欧拉角进行翻转
     }
-
+    /*public virtual void FlipDirection()//判别角色反转
+    {
+        if (transform.position.x < targetPoint.position.x) //如果npc位置大于目标点位置
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        else
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);//通过改变欧拉角进行翻转
+    }*/
     public void SwitchPoint()
     {
         if (Mathf.Abs(pointA.position.x - transform.position.x) > Mathf.Abs(pointB.position.x - transform.position.x))
@@ -161,7 +168,7 @@ public class NPC : MonoBehaviour
      */
     public void OnTriggerStay2D(Collider2D collision) //保持在触发器内
     {
-        if(!attackList.Contains(collision.transform)) //如果不在列表中则添加
+        if(!attackList.Contains(collision.transform) && !hasBomb && !isDead) //如果不在列表中则添加
             attackList.Add(collision.transform);
     }
 
@@ -177,7 +184,8 @@ public class NPC : MonoBehaviour
         {
             alarmSign.SetActive(true);
         }*/
-        StartCoroutine(OnAlarm()); //开启协程
+        if(!isDead)
+            StartCoroutine(OnAlarm()); //开启协程
     }
     
     /*
