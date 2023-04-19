@@ -160,6 +160,8 @@ public void GetHit(float damage)
             // Destroy(gameObject);//销毁游戏对象
         }
         anim.SetTrigger("hit");
+        
+        UIManager.Instance.UpdateHealth(health); //更新UI
     }
 }
 }
