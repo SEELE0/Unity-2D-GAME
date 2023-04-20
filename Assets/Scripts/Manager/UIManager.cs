@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIManager : MonoBehaviour
 {
+    
+    
     //单例模式
     /*
      * 单例模式:
@@ -39,6 +44,11 @@ public class UIManager : MonoBehaviour
     
     public static UIManager Instance;  //单例模式 静态变量常驻内存
     public GameObject healthBar; //血条
+    
+    [Header("UI元素")] //UI元素
+    public GameObject pauseMenu; //暂停面板
+    public Slider bossHealthBar; //Boss血条
+    
     public void Awake() //Awake()方法在Start()方法之前执行
     {
         /*目的:场景切换时不删除gameManager
@@ -89,7 +99,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true); //显示暂停面板
+        
+        Time.timeScale = 0; //暂停游戏
+    }
+    
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false); //隐藏暂停面板
+        
+        Time.timeScale = 1; //恢复游戏
+    }
+    
+    public void SetBossHealth(float health)
+    {
+        bossHealthBar.maxValue = health;
+    }
 
-
+    public void UpdateBossHealth(float health)
+    {
+        bossHealthBar.value = health;
+    }
 
 }

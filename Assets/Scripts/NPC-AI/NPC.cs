@@ -17,6 +17,7 @@ public class NPC : MonoBehaviour
     public float health;
     public bool isDead;
     public bool hasBomb; //是否有炸弹
+    public bool isBoss; //是否为Boss
     
     [Header("移动属性")]
     public float speed;
@@ -50,11 +51,19 @@ public class NPC : MonoBehaviour
     void Start()
     {
         TransitionToState(patrolState);//初始状态为巡逻状态
+        if (isBoss)
+        {
+            UIManager.Instance.SetBossHealth(health);
+        }
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+        if (isBoss)
+        {
+            UIManager.Instance.UpdateBossHealth(health);
+        }
         anim.SetBool("dead",isDead);
         if (isDead)
         {
@@ -72,6 +81,8 @@ public class NPC : MonoBehaviour
         
         currentState.OnUpdate(this); //使用this将类对象作为参数传递给函数方法-----保持状态
         anim.SetInteger("AnimeState",AnimeState); //设置动画状态
+
+
 
     }
 
