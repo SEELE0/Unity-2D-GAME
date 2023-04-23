@@ -33,7 +33,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
 
     [Header("玩家状态")] 
     public float health; //玩家生命值
-    bool isDead = false; //玩家死亡状态
+    public bool isDead = false; //玩家死亡状态
 
     // Start is called before the first frame update
     //start函数游戏开始时执行一次
@@ -78,7 +78,13 @@ public class Playercontorller : MonoBehaviour,IDamageable
         if (Input.GetButtonDown("Jump") && isGround)//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
         {
             canJump = true;
+            // Debug.Log("按下了跳跃键");
         }
+        /*if (Input.GetButtonDown("Jump"))//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
+        {
+            Debug.Log("按下了跳跃键");
+            canJump = true;
+        }*/
         if(Input.GetKeyDown(KeyCode.E))
         {
             Attack();
@@ -100,6 +106,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
     {
         if (canJump)
         {
+            // Debug.Log("跳跃");
             isJump = true;
             jumpFx.SetActive(true);
             jumpFx.transform.position = transform.position + new Vector3(0,-0.55f,0);
@@ -113,15 +120,15 @@ public class Playercontorller : MonoBehaviour,IDamageable
     void PhysicsCheck() //物理检测
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);//检测是否在地面上
-        if (isGround) 
+        if (isGround ) 
         {
             rb.gravityScale = 1; //触地时更改重力大小为1
             isJump = false;
         }
-        /*else
+        else
         {
             rb.gravityScale = 4;  //跳起时更改重力大小为4、
-        }*/
+        }
 
     }
 

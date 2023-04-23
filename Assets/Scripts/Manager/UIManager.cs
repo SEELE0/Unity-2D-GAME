@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     
     public static UIManager Instance;  //单例模式 静态变量常驻内存
     public GameObject healthBar; //血条
+    public GameObject gameoverPanel; //游戏结束面板
     
     [Header("UI元素")] //UI元素
     public GameObject pauseMenu; //暂停面板
@@ -122,5 +123,21 @@ public class UIManager : MonoBehaviour
     {
         bossHealthBar.value = health;
     }
+    
+    public void GameOverUI(bool playerDead)
+    {
+        gameoverPanel.SetActive(playerDead); //显示游戏结束面板
+        /*if (playerDead)
+        {
+            gameoverPanel.transform.GetChild(0).gameObject.SetActive(true); //显示游戏结束面板
+            gameoverPanel.transform.GetChild(1).gameObject.SetActive(false); //隐藏游戏胜利面板
+        }
+        else
+        {
+            gameoverPanel.transform.GetChild(0).gameObject.SetActive(false); //隐藏游戏结束面板
+            gameoverPanel.transform.GetChild(1).gameObject.SetActive(true); //显示游戏胜利面板
+        }*/
+    }
+
 
 }

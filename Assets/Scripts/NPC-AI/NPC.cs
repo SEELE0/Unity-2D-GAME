@@ -179,10 +179,16 @@ public class NPC : MonoBehaviour
      */
     public void OnTriggerStay2D(Collider2D collision) //保持在触发器内
     {
-        if(!attackList.Contains(collision.transform) && !hasBomb && !isDead) //如果不在列表中则添加
+        if(!attackList.Contains(collision.transform) && !hasBomb && !isDead && !GameManager.Instance.gameover) //如果不在列表中则添加
             attackList.Add(collision.transform);
     }
 
+    /*public void OnTriggerStay2D(Collider2D collision) //保持在触发器内
+    {
+    if(!attackList.Contains(collision.transform) && !hasBomb && !isDead) //如果不在列表中则添加
+        attackList.Add(collision.transform);
+    }*/
+    
     public void OnTriggerExit2D(Collider2D collision)//离开触发器
     {
         
@@ -195,7 +201,7 @@ public class NPC : MonoBehaviour
         {
             alarmSign.SetActive(true);
         }*/
-        if(!isDead)
+        if(!isDead && !GameManager.Instance.gameover)
             StartCoroutine(OnAlarm()); //开启协程
     }
     
