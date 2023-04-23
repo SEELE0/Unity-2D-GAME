@@ -13,6 +13,7 @@ public class Door : MonoBehaviour
     {
         anim = GetComponent<Animator>(); //获取匹配角色动画器组件
         coll = GetComponent<BoxCollider2D>(); //获取匹配角色碰撞器组件
+        GameManager.Instance.IsExitDoor(this); //调用GameManager脚本中的IsExitDoor方法，传入当前脚本
         
         coll.enabled = false; //禁用碰撞器
     }

@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        player = FindObjectOfType<Playercontorller>(); //访问场景中的Playercontorller组件的变量和函数
-        doorExit  = FindObjectOfType<Door>(); //访问场景中的Door组件的变量和函数
+        /*player = FindObjectOfType<Playercontorller>(); //访问场景中的Playercontorller组件的变量和函数
+        doorExit  = FindObjectOfType<Door>(); //访问场景中的Door组件的变量和函数*/
     }
 
     public void Update()
@@ -44,6 +44,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("playerHealth"); //删除存储的Health，恢复血量
     }
     
+    //观察者模式
+    /*
+     * 1.观察者模式是一种设计模式，它定义了对象之间的一对多依赖，这样一来，当一个对象改变状态，依赖它的对象都会收到通知并自动更新。
+     * 2.观察者模式是一种对象行为型模式。
+     * 3.观察者模式包含以下主要角色。
+     */
     public void IsNpc(NPC npc) //判断NPC是否存在
     {
         
@@ -52,6 +58,15 @@ public class GameManager : MonoBehaviour
         {
             npcs.Add(npc);
         }*/
+    }
+    public void Isplayer(Playercontorller player)
+    {
+        this.player = player;
+    }
+    
+    public void IsExitDoor(Door doorExit)
+    {
+        this.doorExit = doorExit;
     }
     
     public void NpcDead(NPC npc) //判断NPC是否死亡
