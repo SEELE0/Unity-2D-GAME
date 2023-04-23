@@ -41,16 +41,22 @@ public class NPC : MonoBehaviour
     {
         anim=GetComponent<Animator>();
         alarmSign = transform.GetChild(0).gameObject; //获取第一个子物体即Alarm Sign
+        /*GameManager.Instance.IsNpc(this); //调用GameManager脚本中的IsNpc方法
+        Debug.Log("添加NPC列表 ");*/
     }
     
     public void Awake() //初始化,先于start函数确保初始化游戏内一直有值不会报错
     {
         Init();
+        /*GameManager.Instance.IsNpc(this); //调用GameManager脚本中的IsNpc方法
+        Debug.Log("添加NPC列表 ");*/
     }
     // Start is called before the first frame update
     void Start()
     {
         TransitionToState(patrolState);//初始状态为巡逻状态
+        GameManager.Instance.IsNpc(this); //调用GameManager脚本中的IsNpc方法
+        Debug.Log("添加NPC列表 ");
         if (isBoss)
         {
             UIManager.Instance.SetBossHealth(health);
@@ -67,6 +73,7 @@ public class NPC : MonoBehaviour
         anim.SetBool("dead",isDead);
         if (isDead)
         {
+            GameManager.Instance.NpcDead(this);
             // anim.Play("Dead Hit");
             // Destroy(gameObject);
             return;

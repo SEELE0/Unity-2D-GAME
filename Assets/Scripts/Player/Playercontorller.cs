@@ -41,6 +41,8 @@ public class Playercontorller : MonoBehaviour,IDamageable
     {
         rb = GetComponent<Rigidbody2D>();//获得角色刚体
         anim = GetComponent<Animator>();//获取匹配角色动画器组件
+        health = GameManager.Instance.LoadHealth();
+        UIManager.Instance.UpdateHealth(health); //更新UI
     }
 
     // Update is called once per frame
