@@ -34,15 +34,48 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        gameover = player.isDead; //判断玩家是否死亡
+        if(player != null)
+            gameover = player.isDead; //判断玩家是否死亡
+        
         UIManager.Instance.GameOverUI(gameover);
     }
     
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //重新加载当前场景
+        
+        /*可以注释掉这一句
+         效果为维持一滴血的血量
+         目的:播放广告奖励满血复活
+         
+         */
         PlayerPrefs.DeleteKey("playerHealth"); //删除存储的Health，恢复血量
     }
+    
+    public void NewGame()
+    {
+        /*SceneManager.LoadScene(SceneManager.GetActiveScene().name); //重新加载当前场景
+        PlayerPrefs.DeleteKey("playerHealth"); //删除存储的Health，恢复血量*/
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(1); //加载第一个场景
+        
+    }
+    public void ContinueGame()
+    {
+        if(PlayerPrefs.HasKey("SceneIndex"))
+            SceneManager.LoadScene(PlayerPrefs.GetInt("SceneIndex")); //重新加载当前场景
+        else
+        {
+            NewGame();
+        }
+        // player.health = PlayerPrefs.GetFloat("playerHealth"); //获取存储的Health，恢复血量
+    }
+    
+    public void GotoMainMenu()
+    {
+        SceneManager.LoadScene(0); //加载第一个场景
+    }
+    
     
     //观察者模式
     /*
@@ -118,6 +151,7 @@ public class GameManager : MonoBehaviour
          */
         
         PlayerPrefs.SetFloat("playerHealth",player.health); //存储Health
+        PlayerPrefs.SetInt("SceneIndex",SceneManager.GetActiveScene().buildIndex+1); //存储当前场景索引
         PlayerPrefs.Save(); //构建后在相应位置保存数据
     }
     
