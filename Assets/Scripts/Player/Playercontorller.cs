@@ -9,6 +9,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
     public float speed; //横向移动速度
     public float jumpForce; //跳跃力度
     
+    private FixedJoystick joystick; //定义虚拟摇杆变量
     //因为想在unity引擎窗口中调整所以用public变量
     
     [Header("Ground Check")]
@@ -42,6 +43,9 @@ public class Playercontorller : MonoBehaviour,IDamageable
         rb = GetComponent<Rigidbody2D>();//获得角色刚体
         anim = GetComponent<Animator>();//获取匹配角色动画器组件
         health = GameManager.Instance.LoadHealth();
+
+        joystick = FindObjectOfType<FixedJoystick>();   //获取虚拟摇杆组件
+        
         UIManager.Instance.UpdateHealth(health); //更新UI
         
         GameManager.Instance.Isplayer(this);
@@ -97,13 +101,36 @@ public class Playercontorller : MonoBehaviour,IDamageable
 
     void Movement()//人物移动
     {
+        
+        /*键盘操作*/
         //float horizontalInput = Input.GetAxis("Horizontal");  //横向虚拟轴 ；值大小 -1~1 包括小数
+        
         float horizontalInput = Input.GetAxisRaw("Horizontal"); //横向虚拟轴；值大小 -1~1 不包括小数
+        
+        /*//虚拟摇杆操作
+        float horizontalInput = joystick.Horizontal; //获取虚拟摇杆水平轴输入*/
+        
+        
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);  //定义刚体的**线性速度**，横向速度更改，纵向不变
         
-        if (horizontalInput != 0) {//控制人物左移右移人物翻转
+         //键盘操作 判断
+         if (horizontalInput != 0) {//控制人物左移右移人物翻转
             transform.localScale = new Vector3(horizontalInput, 1, 1);//通过控制缩放Scale的三维变量实现
         }
+        
+        /*
+        //虚拟摇杆操作 判断
+        if (horizontalInput > 0) //控制人物左移右移人物翻转
+        {
+            transform.eulerAngles = new Vector3(0,0,0);
+        }
+        else if (horizontalInput < 0)
+        {
+            transform.eulerAngles = new Vector3(0,180,0);
+        }
+        */
+
+
     }
     
     void jump()
@@ -121,6 +148,13 @@ public class Playercontorller : MonoBehaviour,IDamageable
         
     }
 
+    public void ButtonJump() 
+    {
+        if (isGround)
+            canJump = true;
+    }
+    
+    
     void PhysicsCheck() //物理检测
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);//检测是否在地面上
