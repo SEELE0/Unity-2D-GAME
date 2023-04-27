@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
     [Header("UI元素")] //UI元素
     public GameObject pauseMenu; //暂停面板
     public Slider bossHealthBar; //Boss血条
+    //public GameObject LoginPanel; //登录面板
+    //public GameObject MainMenuPanel; //主菜单面板    
     
     public void Awake() //Awake()方法在Start()方法之前执行
     {
@@ -138,6 +140,7 @@ public class UIManager : MonoBehaviour
             gameoverPanel.transform.GetChild(1).gameObject.SetActive(true); //显示游戏胜利面板
         }*/
     }
+
 
 
 }

@@ -35,9 +35,10 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         if(player != null)
+        {
             gameover = player.isDead; //判断玩家是否死亡
-        
-        UIManager.Instance.GameOverUI(gameover);
+            UIManager.Instance.GameOverUI(gameover);
+        }
     }
     
     public void RestartGame()
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
         /*SceneManager.LoadScene(SceneManager.GetActiveScene().name); //重新加载当前场景
         PlayerPrefs.DeleteKey("playerHealth"); //删除存储的Health，恢复血量*/
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(1); //加载第一个场景
+        SceneManager.LoadScene(2); //加载游戏场景
         
     }
     public void ContinueGame()
@@ -73,7 +74,8 @@ public class GameManager : MonoBehaviour
     
     public void GotoMainMenu()
     {
-        SceneManager.LoadScene(0); //加载第一个场景
+        SceneManager.LoadScene(1); //加载场景
+        
     }
     
     
