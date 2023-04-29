@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class login : MonoBehaviour
 {
     private MD5 md5hash = MD5.Create(); 
-    private MySqlConnection Conn = DBConn.createConnection();
+    // private MySqlConnection Conn = DataBaswManager.Instance.createConnection();
     
     [Header("配置输入框")]
     public InputField usernameInput;

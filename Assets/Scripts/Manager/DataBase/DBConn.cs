@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Script.DataBase
 {
-    public class DBConn
+    public static class DBConn
     {
-        private static string connectionString = "Server=localhost;Database=shop;Uid=root;Pwd=114514;Port=3306;";
+        private static string connectionString = "Server=localhost;Database=gameshop;Uid=root;Pwd=114514;Port=3306;";
         private static MySqlConnection Conn = null;
         
         public static void testConnect()

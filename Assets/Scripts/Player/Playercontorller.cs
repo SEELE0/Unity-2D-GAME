@@ -79,20 +79,34 @@ public class Playercontorller : MonoBehaviour,IDamageable
 
     void checkinput() {//检测输入 
 
+        
         /*
             如果嵌入商城系统后有道具功能为多段跳，可以更改此处条件语句
             为if (Input.GetButtonDown("Jump"))
          */
+        /*if (ToolSession.CurrentTool.Contains("有点神奇之靴")) //如果当前道具列表包含多段跳道具
+        {
+              
+        }*/
         if (Input.GetButtonDown("Jump") && isGround)//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
         {
             canJump = true;
             // Debug.Log("按下了跳跃键");
         }
+        
         /*if (Input.GetButtonDown("Jump"))//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
         {
             Debug.Log("按下了跳跃键");
             canJump = true;
         }*/
+        
+        
+        //添加道具检测
+        
+        
+        
+        
+        
         if(Input.GetKeyDown(KeyCode.E))
         {
             Attack();
@@ -135,6 +149,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
     
     void jump()
     {
+        
         if (canJump)
         {
             // Debug.Log("跳跃");

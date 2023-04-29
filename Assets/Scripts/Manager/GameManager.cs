@@ -156,6 +156,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("SceneIndex",SceneManager.GetActiveScene().buildIndex+1); //存储当前场景索引
         PlayerPrefs.Save(); //构建后在相应位置保存数据
     }
-    
+
+    public void ShowPlayerSession()
+    {
+        UserSession.show();
+        ToolSession.show();
+    }
     
 }
