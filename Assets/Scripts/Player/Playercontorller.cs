@@ -35,7 +35,14 @@ public class Playercontorller : MonoBehaviour,IDamageable
     [Header("玩家状态")] 
     public float health; //玩家生命值
     public bool isDead = false; //玩家死亡状态
+    public int jumpCount = 1; //可跳跃次数
+    public int maxJumpCount  = 2; //最大跳跃次数,实现二段跳
 
+    [Header("道具详情")] 
+    public List<string> Props;
+    public GameObject Pet_Cat;
+    
+    
     // Start is called before the first frame update
     //start函数游戏开始时执行一次
     void Start()
@@ -49,6 +56,9 @@ public class Playercontorller : MonoBehaviour,IDamageable
         UIManager.Instance.UpdateHealth(health); //更新UI
         
         GameManager.Instance.Isplayer(this);
+        
+        SetPet();
+        Props=ToolSession.CurrentTool;
     }
 
     // Update is called once per frame
@@ -88,11 +98,24 @@ public class Playercontorller : MonoBehaviour,IDamageable
         {
               
         }*/
-        if (Input.GetButtonDown("Jump") && isGround)//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
+
+        if (DoubleJump_shoe.SetProp())
         {
-            canJump = true;
-            // Debug.Log("按下了跳跃键");
+            if (Input.GetButtonDown("Jump") && jumpCount < maxJumpCount)
+            {
+                jumpCount++;
+                canJump = true;
+            }
         }
+        else
+        {
+            if (Input.GetButtonDown("Jump") && isGround)//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
+            {
+                canJump = true;
+                // Debug.Log("按下了跳跃键");
+            }
+        }
+
         
         /*if (Input.GetButtonDown("Jump"))//在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。
         {
@@ -102,14 +125,16 @@ public class Playercontorller : MonoBehaviour,IDamageable
         
         
         //添加道具检测
-        
-        
-        
-        
-        
+
         if(Input.GetKeyDown(KeyCode.E))
         {
             Attack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("大炮发射");
+            
         }
     }
 
@@ -149,7 +174,10 @@ public class Playercontorller : MonoBehaviour,IDamageable
     
     void jump()
     {
-        
+        if (isGround)
+        {
+            jumpCount = 1;
+        }
         if (canJump)
         {
             // Debug.Log("跳跃");
@@ -160,6 +188,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
             rb.gravityScale = 4;  //跳起时更改重力大小为4
             canJump = false;
         }
+        
         
     }
 
@@ -201,13 +230,13 @@ public class Playercontorller : MonoBehaviour,IDamageable
         }
     }
 
-public void OnDrawGizmos()//在unity中显示检测范围;Unity内置函数
+    public void OnDrawGizmos()//在unity中显示检测范围;Unity内置函数
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);//绘制圆形检测范围
     }
 
-public void GetHit(float damage)
+    public void GetHit(float damage)
 {
     /*实现受伤短暂无敌*/
     if (!anim.GetCurrentAnimatorStateInfo(1).IsName("player_hit")) //如果当前动画状态为player_hit
@@ -224,5 +253,19 @@ public void GetHit(float damage)
         UIManager.Instance.UpdateHealth(health); //更新UI
     }
 }
+
+    public void SetPet()
+{
+    if (pet.SetPet())
+    {
+        Pet_Cat.SetActive(true);
+    }
+}
+
+    /*public void Connon()
+    {
+        
+    }*/
+
 }
 

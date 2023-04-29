@@ -157,6 +157,19 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save(); //构建后在相应位置保存数据
     }
 
+    /*
+     *保存数据这里可以结合一下数据库:
+     * 1.在数据库中创建一个表，存储玩家的数据
+     * 2.在游戏开始时，读取数据库中的数据，恢复玩家的数据
+     * 3.在游戏结束时，将玩家的数据存储到数据库中
+     *
+     * 存储场景号码和血量状态
+     * 
+     *
+     * 
+     */
+    
+    
     public void ShowPlayerSession()
     {
         UserSession.show();
