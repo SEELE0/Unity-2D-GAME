@@ -121,7 +121,15 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //加载下一个场景
+        if (SceneManager.GetActiveScene().buildIndex == 6)
+        {
+            UIManager.Instance.WinPanel();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //加载下一个场景
+        }
+        
     }
     
     public void QuitGame()

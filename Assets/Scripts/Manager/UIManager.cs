@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;  //单例模式 静态变量常驻内存
     public GameObject healthBar; //血条
     public GameObject gameoverPanel; //游戏结束面板
-    
+    public GameObject winPanel; //游戏胜利面板
     [Header("UI元素")] //UI元素
     public GameObject pauseMenu; //暂停面板
     public Slider bossHealthBar; //Boss血条
@@ -140,6 +140,12 @@ public class UIManager : MonoBehaviour
             gameoverPanel.transform.GetChild(1).gameObject.SetActive(true); //显示游戏胜利面板
         }*/
     }
+
+    public void WinPanel()
+    {
+        winPanel.SetActive(true);
+    }
+    
 
 
 
