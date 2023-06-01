@@ -99,7 +99,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
               
         }*/
 
-        if (DoubleJump_shoe.SetProp())
+        if (DoubleJump_shoe.SetProp())  //检测是否有鞋子道具
         {
             if (Input.GetButtonDown("Jump") && jumpCount < maxJumpCount)
             {
@@ -176,13 +176,13 @@ public class Playercontorller : MonoBehaviour,IDamageable
     {
         if (isGround)
         {
-            jumpCount = 1;
+            jumpCount = 1; //重置跳跃次数
         }
         if (canJump)
         {
             // Debug.Log("跳跃");
             isJump = true;
-            jumpFx.SetActive(true);
+            jumpFx.SetActive(true); //播放跳跃特效
             jumpFx.transform.position = transform.position + new Vector3(0,-0.55f,0);
             rb.velocity = new Vector2(rb.velocity.x,jumpForce);//设置rb.velocity.x目的是让角色在跳跃时可以左右位移
             rb.gravityScale = 4;  //跳起时更改重力大小为4
@@ -239,7 +239,7 @@ public class Playercontorller : MonoBehaviour,IDamageable
     public void GetHit(float damage)
 {
     /*实现受伤短暂无敌*/
-    if (!anim.GetCurrentAnimatorStateInfo(1).IsName("player_hit")) //如果当前动画状态为player_hit
+    if (!anim.GetCurrentAnimatorStateInfo(1).IsName("player_hit")) //如果当前动画状态不为player_hit
     {
         health -= damage; //减少生命值
         if (health < 1 && !isDead) //如果生命值小于1且未死亡

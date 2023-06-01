@@ -7,9 +7,9 @@ using UnityEditor.MemoryProfiler;
 using System.Security.Cryptography;
 using Script.DataBase;
 
-public class DataBaswManager : MonoBehaviour
+public class DataBaseManager : MonoBehaviour
 {
-    // 这里需要替换为你自己的 MySQL 数据库信息。
+    // MySQL 数据库信息。
     private string _connectionString;
 
     // private MySqlConnection Conn = null;
@@ -17,7 +17,7 @@ public class DataBaswManager : MonoBehaviour
     // private MD5 md5Hash = MD5.Create();
 
 
-    public static DataBaswManager Instance; // 单例模式
+    public static DataBaseManager Instance; // 单例模式
 
     private void Awake() //Awake()方法在Start()方法之前执行
     {

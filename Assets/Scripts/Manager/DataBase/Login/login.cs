@@ -43,8 +43,8 @@ public class login : MonoBehaviour
         string username = usernameInput.text;
         string password = passwordInput.text;
         string passwordMd5 = GetMd5Hash(md5hash, password);
-        MySqlConnection Conn = DataBaswManager.Instance.createConnection();
-        DataBaswManager.Instance.checkUser(username, passwordMd5, Conn);
+        MySqlConnection Conn = DataBaseManager.Instance.createConnection();
+        DataBaseManager.Instance.checkUser(username, passwordMd5, Conn);
         /*if (DataBaswManager.Instance.checkUser(username, passwordMd5, Conn))
         {
             MainUIManager.Instance.MainMenu();

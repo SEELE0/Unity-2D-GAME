@@ -27,7 +27,7 @@ public class Captain : NPC,IDamageable
     {
         base.Skill();//调用父类方法
 
-        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Skill"))
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Skill")) 
         {
             spriteRenderer.flipX = true;
             if (transform.position.x > targetPoint.position.x) //炸弹在左侧向右跑

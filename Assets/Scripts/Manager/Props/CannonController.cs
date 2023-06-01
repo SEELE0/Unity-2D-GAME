@@ -47,7 +47,7 @@ public class CannonController : MonoBehaviour
         return false;
     }
     
-    void LaunchBomb()
+    void LaunchBomb() //发射炸弹 anim event
     {
         // Vector3 cannonPos = transform.position; //获取炮台位置
         

@@ -643,6 +643,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b003a5916055d8e42bad7a1a2d00f694, type: 3}
+--- !u!114 &654541619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1231080370601494400, guid: b003a5916055d8e42bad7a1a2d00f694, type: 3}
+  m_PrefabInstance: {fileID: 654541618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb327b460ec5d440a762d3b053eea2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &762749275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1453,7 +1464,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 654541619}
         m_TargetAssemblyTypeName: Playercontorller, Assembly-CSharp
         m_MethodName: ButtonJump
         m_Mode: 1
@@ -1639,7 +1650,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 654541619}
         m_TargetAssemblyTypeName: Playercontorller, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1

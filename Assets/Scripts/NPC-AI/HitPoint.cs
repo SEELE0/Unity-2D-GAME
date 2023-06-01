@@ -29,6 +29,7 @@ public class HitPoint : MonoBehaviour
             other.GetComponent<IDamageable>().GetHit(AttackDamage);//调用IDamageable接口中的GetHit方法
         }
 
+        /*测试用，调试检测能否释放技能()*/
         if (other.CompareTag("Bomb")&&bombAvilable) //如果碰撞体标签为Bomb
         {
             Debug.Log("技能释放成功");
