@@ -29,7 +29,7 @@
     - ADS播放
     - 通过joystick第三方包实现虚拟按钮构建在移动平台
 
-### 游戏道具商城
+### [游戏道具商城](https://github.com/SEELE0/Game_shop_SMM)
 
 - 前台
   - 登录注册
