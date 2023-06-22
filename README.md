@@ -1,6 +1,4 @@
-
-
-
+# Unity2D-game
 
 添加道具商城，通过ODBC/.net controller链接数据库进行查询
 
