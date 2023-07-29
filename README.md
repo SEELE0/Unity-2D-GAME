@@ -1,5 +1,7 @@
 # Unity2D-game
 
+游戏制作结合[Unity学院2D游戏开发课程](https://learn.u3d.cn/tutorial/2d-mobile-mstudio)进行二次开发与改进
+
 添加道具商城，通过ODBC/.net controller链接数据库进行查询
 
 创建静态类进行会话保持
